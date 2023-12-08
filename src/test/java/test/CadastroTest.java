@@ -28,8 +28,8 @@ public class CadastroTest {
         cadastroPagesPF = new CadastroPagesPF(driver);
         cadastroPagesPJ = new CadastroPagesPJ(driver);
 
-
         driver.manage().window().maximize();
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
         WebElement aceitarCookies = driver.findElement(By.id("onetrust-accept-btn-handler"));
         aceitarCookies.click();
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
@@ -48,21 +48,26 @@ public class CadastroTest {
     @Test
     public void cadastroPfCPFInvalido(){
         cadastroPagesPF.preencherCampoComCPFInvalido();
+        cadastroPagesPF.verificarMensagemCpfInvalido();
     }
 
     @Test
-    public void cadastroPfAnoNascimentoInvalido(){
+    public void cadastroPfCampoComDataNascimentoCompleta(){
         cadastroPagesPF.preencherCampoComDataNascimentoCompleta();
+        cadastroPagesPF.verificarMensagemDataNascimentoCompleta();
     }
 
     @Test
     public void cadastroPjEmailInvalido(){
         cadastroPagesPJ.EmailInvalido();
+        cadastroPagesPJ.verificarMensagemEmailInvalido();
+        cadastroPagesPJ.verificarMensagemConfEmailInvalido();
     }
 
     @Test
     public void cadastroPjNomeSobrenomeObrigatorio(){
         cadastroPagesPJ.nomeSobrenomeObrigatorios();
+        cadastroPagesPJ.verificarMensagemSobrenomeObrigatorio();
     }
 
 
@@ -73,12 +78,3 @@ public class CadastroTest {
 }
 
 
-/*
-       ok 1 teste: cadastro pagina pf
-       ok 2 teste: cadastro pagina pj
-
-       ok 3 teste: cpf invalido pagina pf
-       ok 4 teste: data nascimento completa obrigatoria pagina pf
-       ok 5 teste: email invalido pagina pj
-       ok 6 teste: prenchimento de nome e sobrenome obrigatorio pagina pj
-        */

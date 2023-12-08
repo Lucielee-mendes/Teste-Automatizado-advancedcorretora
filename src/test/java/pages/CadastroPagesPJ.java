@@ -6,6 +6,8 @@ import org.openqa.selenium.WebElement;
 
 import java.time.Duration;
 
+import static org.junit.Assert.assertEquals;
+
 public class CadastroPagesPJ {
     static WebDriver driver;
 
@@ -13,12 +15,14 @@ public class CadastroPagesPJ {
         this.driver = driver;
     }
 
-    public void preencherCampoPJ(){
 
-
+    public void abrirPJ(){
         WebElement pJ = driver.findElement(By.id("PjButton"));
         pJ.click();
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(2));
+    }
+    public void preencherCampoPJ(){
+        abrirPJ();
 
         WebElement nome = driver.findElement(By.id("name"));
         nome.sendKeys("Ana");
@@ -60,16 +64,12 @@ public class CadastroPagesPJ {
         WebElement checkboxLGPD = driver.findElement(By.xpath("//body/div[@id='root-app']/div[1]/div[1]/form[1]/div[1]/div[3]/div[11]/div[1]/div[1]/div[1]/label[1]/span[1]"));
         checkboxLGPD.click();
 
-        /*WebElement cadastrar = driver.findElement(By.xpath("//body/div[@id='root-app']/div[1]/div[1]/form[1]/div[1]/div[3]/div[14]/button[1]"));
-        cadastrar.click();*/
 
     }
 
     public void EmailInvalido(){
 
-        WebElement pJ = driver.findElement(By.id("PjButton"));
-        pJ.click();
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+        abrirPJ();
 
         WebElement nome = driver.findElement(By.id("name"));
         nome.sendKeys("Ana");
@@ -111,16 +111,12 @@ public class CadastroPagesPJ {
         WebElement checkboxLGPD = driver.findElement(By.xpath("//body/div[@id='root-app']/div[1]/div[1]/form[1]/div[1]/div[3]/div[11]/div[1]/div[1]/div[1]/label[1]/span[1]"));
         checkboxLGPD.click();
 
-        WebElement cadastrar = driver.findElement(By.xpath("//body/div[@id='root-app']/div[1]/div[1]/form[1]/div[1]/div[3]/div[14]/button[1]"));
-        cadastrar.click();
 
     }
 
     public void nomeSobrenomeObrigatorios(){
         
-        WebElement pJ = driver.findElement(By.id("PjButton"));
-        pJ.click();
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+      abrirPJ();
 
         WebElement nome = driver.findElement(By.id("name"));
         nome.sendKeys("Ana Sousa");
@@ -164,4 +160,25 @@ public class CadastroPagesPJ {
 
 
     }
+    public void verificarMensagemEmailInvalido(){
+        WebElement mensagemErroEmailInvalido = driver.findElement(By.xpath("//span[contains(text(),'Digite um email válido')]"));
+        String mensagemErro = mensagemErroEmailInvalido.getText();
+        String mensagemErroEsperada = "Digite um email válido";
+        assertEquals( mensagemErroEsperada, mensagemErro);
+    }
+    public void verificarMensagemConfEmailInvalido(){
+        WebElement mensagemErroConfirmaEmail = driver.findElement(By.xpath("//p[contains(text(),'E-mail informado não confere, por favor verifique ')]"));
+        String mensagemErro = mensagemErroConfirmaEmail.getText();
+        String mensagemErroEsperada = "E-mail informado não confere, por favor verifique o e-mail informado.";
+        assertEquals( mensagemErroEsperada, mensagemErro);
+    }
+    public void verificarMensagemSobrenomeObrigatorio(){
+        WebElement mensagemErroSobrenomeObrigtorio = driver.findElement(By.xpath("//span[contains(text(),'Obrigatório')]"));
+        String mensagemErro = mensagemErroSobrenomeObrigtorio.getText();
+        String mensagemErroEsperada = "Obrigatório.";
+        assertEquals( mensagemErroEsperada, mensagemErro);
+    }
+
+
+
 }
